@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookinator - Quiz Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="background-glob"></div>
+    <div class="background-glob glob-2"></div>
+
+    <div class="app-container quiz-layout">
+        <!-- Progress Header -->
+        <div class="quiz-header">
+            <div class="progress-label">Question <span id="q-current">1</span></div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill" style="width: 5%;"></div>
+            </div>
+        </div>
+
+        <!-- Main Question Area -->
+        <div class="question-container" id="question-container">
+            <!-- Start Screen -->
+            <div class="question-card visible" id="start-card">
+                <div class="icon-wrapper">🧞‍♂️</div>
+                <h1>Let's find your book.</h1>
+                <p>I'll ask about 20 questions. First, some basics.</p>
+                <button class="btn primary big-btn" id="start-btn">Start Quiz</button>
+            </div>
+
+            <!-- Active Question Card -->
+            <div class="question-card" id="q-card" style="display: none;">
+                <div class="thinking-pulse" id="thinking-pulse"></div>
+                <h2 id="q-text">Loading question...</h2>
+            </div>
+
+            <!-- Result Card (Replaces Modal) -->
+            <div class="question-card result-mode" id="result-card" style="display: none;">
+                <div class="icon-wrapper">🎉</div>
+                <h1>I found it!</h1>
+                <div class="confidence-badge" id="res-confidence">95% Sure</div>
+                <h2 id="res-title" class="book-title">Harry Potter</h2>
+                <div class="reasoning-box">
+                    <p id="res-reasoning">Reasoning...</p>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn primary big-btn" id="confirm-res">Yes, that's it!</button>
+                    <button class="btn secondary big-btn" id="reject-res">No, not quite</button>
+                </div>
+
+                <div class="similar-preview" id="res-similar" style="display:none;">
+                    <h3>Other Possibilities</h3>
+                    <ul id="res-similar-list"></ul>
+                </div>
+            </div>
+
+            <!-- Resolution Card (Sudden Death at Q20) -->
+            <div class="question-card result-mode" id="resolution-card" style="display: none;">
+                <h1>I'm Stumped! 😅</h1>
+                <p>I asked 20 questions. Here are my top guesses:</p>
+                <div id="candidates-list" class="candidates-list">
+                    <!-- Populated by JS -->
+                </div>
+
+                <button class="btn secondary" id="btn-none" onclick="showInputForm()">None of these</button>
+
+                <div id="manual-input-area" style="display: none; margin-top: 20px;">
+                    <input type="text" id="user-book-input" placeholder="What was the book?" class="text-input">
+                    <button class="btn primary" onclick="submitUserBook()">I Win!</button>
+                </div>
+            </div>
+
+            <!-- Final Status Card -->
+            <div class="question-card result-mode" id="final-status-card" style="display: none;">
+                <div class="icon-wrapper" id="final-icon">🏆</div>
+                <h1 id="final-title">You Win!</h1>
+                <p id="final-msg">Thanks for playing.</p>
+                <button class="btn primary" onclick="restartGame()">Play Again</button>
+            </div>
+
+        </div>
+
+        <!-- Info Toast ("Did you mean?") -->
+        <div id="info-toast" class="info-toast" style="display: none;">
+            <span id="info-text">Did you mean Feluda?</span>
+        </div>
+
+        <!-- Answer Buttons (Fixed Bottom) -->
+        <div class="answers-area" id="answers-area" style="display: none;">
+            <button class="ans-btn yes-plus" data-reply="Absolutely">Absolutely</button>
+            <button class="ans-btn yes" data-reply="Yes">Yes</button>
+            <button class="ans-btn probably" data-reply="Probably">Probably</button>
+            <button class="ans-btn probably-not" data-reply="Probably Not">Probably Not</button>
+            <button class="ans-btn no" data-reply="No">No</button>
+            <button class="ans-btn no-plus" data-reply="Absolutely Not">Absolutely Not</button>
+        </div>
+
+        <!-- Restart -->
+        <button class="reset-icon" id="reset-btn" title="Restart">↻</button>
+    </div>
+
+    <!-- Guess Modal (Same as before) -->
+    <div id="guess-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Is this your book?</h2>
+            </div>
+            <div class="modal-body">
+                <div class="confidence-ring">
+                    <span id="guess-confidence">0%</span>
+                </div>
+                <h3 id="guess-book-title">Title</h3>
+                <p id="guess-reasoning">Reasoning...</p>
+
+                <div class="similar-books">
+                    <h4>Alternatives:</h4>
+                    <ul id="similar-list"></ul>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn primary" id="confirm-guess">Yes! 🎉</button>
+                    <button class="btn secondary" id="reject-guess">No, continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

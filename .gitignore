@@ -1,0 +1,19 @@
+# Python / Flask
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Specific
+data/processed_books.json
+logs/
+*.log
+nul 
