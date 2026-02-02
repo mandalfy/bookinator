@@ -1,4 +1,4 @@
-# 📚 Bookinator V2 (Kolkata Book Fair Edition)
+# 📚 Bookinator V2
 
 **The AI-Powered "Mind Reading" Book Guessing Game**
 
@@ -82,4 +82,3 @@ It specifically specializes in **Bengali Literature** (Feluda, Byomkesh, Tagore,
 
 ---
 
-**Created for the Love of Books & Boimela.** ❤️📖
